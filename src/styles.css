@@ -1,0 +1,193 @@
+:root {
+  --navy-deep: #081433;
+  --navy: #0B1F4B;
+  --panel: #14306E;
+  --panel-2: #1B3C85;
+  --orange: #F7943D;
+  --ink: #F3F5FA;
+  --muted: #A9B6D6;
+  --green: #2FA84F;
+  --yellow: #E6C229;
+  --amber: #EE8A2B;
+  --red: #D62839;
+  --radius: 28px;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  background: #000;
+  color: var(--ink);
+  overflow: hidden;
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
+button:focus-visible { outline: 6px solid var(--orange); outline-offset: 4px; }
+.viewport { position: fixed; inset: 0; overflow: hidden; }
+
+/* ───── קנבס טוטם 1080×1920 ───── */
+.stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1080px; height: 1920px;
+  display: flex; flex-direction: column;
+  background: radial-gradient(1200px 900px at 50% -10%, #1d3f8f 0%, var(--navy) 55%, var(--navy-deep) 100%);
+  overflow: hidden;
+  transform-origin: center center;
+}
+main { flex: 1; min-height: 0; }
+
+/* ───── כותרת עליונה ───── */
+.top { height: 150px; padding: 0 56px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--orange); background: rgba(8,20,51,.55); }
+.brand { display: flex; align-items: center; gap: 20px; }
+.brand-mark { font-size: 72px; color: var(--orange); line-height: 1; }
+.brand strong { display: block; font-size: 40px; font-weight: 900; }
+.brand small { font-size: 24px; color: var(--muted); }
+.steps { list-style: none; padding: 0; display: flex; gap: 10px; }
+.steps li { display: flex; align-items: center; gap: 10px; font-size: 22px; color: var(--muted); padding: 10px 16px; border-radius: 40px; }
+.steps li b { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 3px solid currentColor; font-size: 22px; }
+.steps li.now { background: var(--orange); color: var(--navy-deep); font-weight: 700; }
+.steps li.done { color: var(--ink); }
+.steps li.done b { background: var(--green); border-color: var(--green); color: #fff; }
+
+/* ───── מסכים ───── */
+.screen { height: 100%; display: flex; flex-direction: column; }
+.screen-head { padding: 44px 56px 20px; }
+.screen-head h2 { font-size: 66px; font-weight: 900; line-height: 1.1; }
+.screen-head p { font-size: 32px; color: var(--muted); margin-top: 12px; }
+.scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.scroll::-webkit-scrollbar { display: none; }
+
+/* ───── כפתורים ───── */
+.btn-xl { min-height: 130px; padding: 0 70px; border-radius: 70px; background: var(--orange); color: var(--navy-deep); font-size: 48px; font-weight: 900; box-shadow: 0 10px 0 #b8631b, 0 24px 50px rgba(0,0,0,.4); transition: transform .12s, box-shadow .12s; }
+.btn-xl:active { transform: translateY(8px); box-shadow: 0 2px 0 #b8631b; }
+.btn-xl.sm { min-height: 112px; padding: 0 48px; font-size: 40px; }
+.btn-xl:disabled { background: #3c4f80; color: #8e9cc2; box-shadow: none; cursor: not-allowed; }
+.btn-ghost { min-height: 112px; padding: 0 44px; border-radius: 60px; border: 4px solid var(--muted); font-size: 36px; font-weight: 700; color: var(--ink); }
+.btn-ghost:active { background: rgba(255,255,255,.12); }
+.link { margin-inline-start: 24px; font-size: 28px; color: var(--orange); text-decoration: underline; padding: 14px; }
+
+/* ───── פס תחתון ───── */
+.bar { height: 170px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 56px; background: rgba(8,20,51,.85); border-top: 2px solid rgba(255,255,255,.14); }
+.bar-count { font-size: 32px; color: var(--muted); text-align: center; }
+.bar-count b { font-size: 48px; color: var(--ink); }
+.progress { width: 340px; height: 18px; border-radius: 10px; background: rgba(255,255,255,.14); margin: 0 auto 10px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--green); transition: width .3s; }
+
+/* ───── מסך פתיחה ───── */
+.welcome { align-items: center; justify-content: center; text-align: center; padding: 0 70px; gap: 36px; }
+.welcome-gauge { width: 940px; }
+.welcome h1 { font-size: 92px; font-weight: 900; line-height: 1.08; }
+.lead { font-size: 38px; color: var(--muted); max-width: 820px; line-height: 1.4; }
+.welcome .btn-xl { margin-top: 24px; animation: pulse 2.4s infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+
+/* ───── מדים ───── */
+.gauge { width: 100%; display: block; overflow: visible; }
+.gauge .needle { transition: transform 2.2s cubic-bezier(.34, 1.45, .5, 1); }
+.welcome .gauge .needle { transition: transform 1.8s cubic-bezier(.4, 0, .2, 1); }
+.gauge-end { fill: var(--ink); font-size: 34px; font-weight: 700; font-family: 'Heebo', sans-serif; }
+
+/* ───── בחירת נתונים ───── */
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 0 56px 22px; }
+.tab { position: relative; min-height: 130px; border-radius: 24px; background: var(--panel); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 27px; font-weight: 700; color: var(--muted); border: 4px solid transparent; }
+.tab-icon { font-size: 44px; }
+.tab.active { background: var(--panel-2); color: var(--ink); border-color: var(--orange); }
+.badge { position: absolute; top: -12px; inset-inline-start: -8px; min-width: 46px; height: 46px; padding: 0 10px; display: grid; place-items: center; border-radius: 23px; background: var(--orange); color: var(--navy-deep); font-size: 28px; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 8px 56px 40px; align-content: start; }
+.pick { position: relative; display: flex; align-items: center; gap: 18px; min-height: 196px; padding: 20px 24px; border-radius: var(--radius); background: var(--panel); text-align: start; border: 5px solid transparent; border-inline-start: 18px solid var(--c, var(--green)); transition: background .15s, border-color .15s; }
+.pick.routine { --c: var(--green); }
+.pick.protect { --c: var(--red); }
+.pick-icon { font-size: 62px; flex: none; }
+.pick-text { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+.pick-text strong { font-size: 31px; line-height: 1.15; font-weight: 700; }
+.pick-text small { font-size: 23px; color: var(--muted); line-height: 1.25; }
+.check { flex: none; width: 62px; height: 62px; border-radius: 50%; border: 4px solid var(--muted); display: grid; place-items: center; font-size: 40px; font-weight: 900; color: var(--navy-deep); }
+.pick.on { background: var(--panel-2); border-color: var(--orange); border-inline-start-color: var(--c); }
+.pick.on .check { background: var(--orange); border-color: var(--orange); }
+.pick:active { transform: scale(.985); }
+
+/* ───── דירוג ───── */
+.rate-card { display: flex; align-items: stretch; gap: 22px; padding: 22px; border-radius: var(--radius); background: var(--panel); border: 5px solid transparent; border-inline-start: 18px solid var(--c, var(--green)); min-height: 430px; }
+.rate-card.routine { --c: var(--green); }
+.rate-card.protect { --c: var(--red); }
+.rate-card.rated { background: var(--panel-2); }
+.rate-text { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; align-items: flex-start; }
+.rate-icon { font-size: 56px; line-height: 1; }
+.rate-text strong { font-size: 31px; line-height: 1.15; }
+.rate-text small { font-size: 22px; color: var(--muted); line-height: 1.25; }
+.rate-readout { margin-top: auto; font-size: 36px; font-weight: 900; color: var(--orange); }
+.chip { display: inline-block; padding: 6px 16px; border-radius: 30px; font-size: 22px; font-weight: 700; color: #fff; }
+.chip.red { background: rgba(214,40,57,.85); }
+.chip.green { background: rgba(47,168,79,.85); }
+.chip.big { font-size: 26px; padding: 10px 20px; }
+
+.thermo { display: flex; flex-direction: column; gap: 8px; flex: none; width: 132px; }
+.seg { flex: 1; min-height: 70px; border-radius: 14px; background: color-mix(in srgb, var(--c) 22%, #0b1f4b); border: 3px solid color-mix(in srgb, var(--c) 55%, transparent); font-size: 34px; font-weight: 900; color: rgba(255,255,255,.55); transition: background .15s, transform .15s; }
+.seg.cap { border-radius: 60px 60px 14px 14px; }
+.seg.bulb { border-radius: 14px 14px 60px 60px; }
+.seg.on { background: var(--c); border-color: var(--c); color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+.seg.top { transform: scale(1.09); box-shadow: 0 0 34px color-mix(in srgb, var(--c) 80%, transparent); }
+
+/* ───── עיבוד ───── */
+.processing { align-items: center; justify-content: center; text-align: center; gap: 60px; overflow: hidden; }
+.orbit { position: relative; width: 0; height: 0; }
+.core { position: absolute; left: -160px; top: -160px; width: 320px; height: 320px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, var(--orange), #c4661a); box-shadow: 0 0 0 24px rgba(247,148,61,.22), 0 0 0 64px rgba(247,148,61,.1), 0 0 140px rgba(247,148,61,.6); animation: breathe 1.6s ease-in-out infinite; }
+.core span { font-size: 130px; font-weight: 900; color: var(--navy-deep); }
+@keyframes breathe { 50% { transform: scale(1.1); } }
+.flyer { position: absolute; left: 0; top: 0; white-space: nowrap; padding: 12px 24px; border-radius: 40px; font-size: 28px; font-weight: 700; color: #fff; opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))); animation: fly 3.2s var(--d) infinite ease-in; }
+.flyer.red { background: var(--red); }
+.flyer.green { background: var(--green); }
+@keyframes fly {
+  0% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1); }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+}
+.proc-msg { position: absolute; bottom: 230px; font-size: 54px; font-weight: 900; animation: msgin .5s; }
+@keyframes msgin { from { opacity: 0; } to { opacity: 1; } }
+
+/* ───── תוצאה ───── */
+.results .scroll { padding: 36px 56px 30px; display: flex; flex-direction: column; gap: 30px; }
+.verdict { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.verdict .gauge { width: 900px; }
+.verdict-plate { text-align: center; margin-top: -10px; padding: 26px 70px 30px; border-radius: 40px; background: var(--lvl); color: #fff; box-shadow: 0 0 80px color-mix(in srgb, var(--lvl) 55%, transparent); transition: background .6s; }
+.verdict-plate small { font-size: 28px; opacity: .9; }
+.verdict-plate h2 { font-size: 88px; font-weight: 900; line-height: 1.05; text-shadow: 0 3px 10px rgba(0,0,0,.25); }
+.level-name { font-size: 38px; font-weight: 700; }
+.verdict-plate { color: #fff; }
+
+.sectors { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.sector { padding: 24px 26px; border-radius: var(--radius); background: var(--panel); border-inline-start: 18px solid var(--lvl); display: flex; flex-direction: column; gap: 14px; }
+.sector-top { display: flex; align-items: center; gap: 14px; }
+.sector-icon { font-size: 50px; }
+.sector-top strong { font-size: 30px; flex: 1; }
+.sector-level { font-size: 24px; padding: 6px 16px; border-radius: 24px; background: var(--lvl); color: #fff; white-space: nowrap; }
+.sector p { font-size: 27px; color: var(--ink); line-height: 1.25; }
+.track { direction: ltr; position: relative; height: 24px; border-radius: 12px; background: linear-gradient(90deg, var(--green) 0 25%, var(--yellow) 25% 50%, var(--amber) 50% 75%, var(--red) 75% 100%); }
+.track i { position: absolute; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: #fff; border: 8px solid var(--navy-deep); box-shadow: 0 4px 14px rgba(0,0,0,.5); transition: left 1.6s cubic-bezier(.34,1.3,.5,1) .5s; animation: slide 1.6s .5s backwards cubic-bezier(.34,1.3,.5,1); }
+@keyframes slide { from { left: 0; } }
+
+.analysis { padding: 30px 34px; border-radius: var(--radius); background: #fff; color: #11214b; display: flex; flex-direction: column; gap: 18px; border: 6px solid var(--orange); }
+.analysis-head { display: flex; align-items: center; justify-content: space-between; }
+.analysis h3 { font-size: 46px; font-weight: 900; }
+.src { font-size: 22px; font-weight: 700; padding: 8px 18px; border-radius: 24px; }
+.src.ai { background: #e4ebff; color: #22409a; }
+.src.local { background: #f1f1f1; color: #555; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.analysis-text { font-size: 31px; line-height: 1.5; }
+.disclaimer { font-size: 22px; color: #5a6690; }
+
+/* ───── שכבת "עדיין כאן?" ───── */
+.overlay { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; background: rgba(4,10,28,.85); backdrop-filter: blur(6px); }
+.dialog { text-align: center; padding: 70px 90px; background: var(--panel); border-radius: 50px; border: 6px solid var(--orange); display: flex; flex-direction: column; gap: 28px; align-items: center; }
+.dialog h2 { font-size: 90px; font-weight: 900; }
+.dialog p { font-size: 44px; }
+.dialog b { color: var(--orange); font-size: 70px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome .btn-xl, .core, .flyer { animation: none; }
+  .gauge .needle, .track i { transition-duration: .01s; animation: none; }
+}

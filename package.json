@@ -1,0 +1,32 @@
+{
+  "name": "shelter-compass",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": ".",
+  "proxy": "http://localhost:8787",
+  "scripts": {
+    "start": "concurrently -k -n server,client -c blue,green \"npm:server\" \"npm:client\"",
+    "client": "react-scripts start",
+    "server": "node server/index.cjs",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "dependencies": {
+    "@fontsource/heebo": "^5.0.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1"
+  },
+  "eslintConfig": { "extends": ["react-app"] },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  }
+}
