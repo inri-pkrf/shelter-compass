@@ -1,0 +1,88 @@
+/* ═══════════════════════════════════════════════════════════
+   כיתה אימרסיבית – שלושה מסכים (3 × 3840×2160 = 11520×2160)
+   כל הכללים כאן מתחילים ב-.w-* או ב-.wide-main, והרכיב מוצג רק במצב wide,
+   כך שהטוטם והמסכים הרגילים לא מושפעים. נטען אחרי styles.css.
+   הקנבס: 5760×1080 יחידות עיצוב = 1920×1080 לכל מסך.
+   ═══════════════════════════════════════════════════════════ */
+.wide-main { flex: 1; min-height: 0; display: flex; }
+.w-root { flex: 1; min-width: 0; display: flex; direction: rtl; }
+
+.w-col { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; border-inline-start: 2px solid rgba(255,255,255,.08); }
+.w-col:first-child { border-inline-start: 0; }
+.w-top { height: 116px; flex: none; padding: 0 56px; display: flex; align-items: center; justify-content: center; border-bottom: 4px solid var(--orange); background: rgba(8,20,51,.55); }
+.w-body { flex: 1; min-height: 0; padding: 0 56px 24px; display: flex; flex-direction: column; gap: 20px; overflow: hidden; }
+.w-bar { height: 124px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 56px; background: rgba(8,20,51,.85); border-top: 2px solid rgba(255,255,255,.14); }
+
+.w-head { min-height: 150px; padding-top: 26px; flex: none; }
+.w-head h2 { font-size: 54px; font-weight: 900; line-height: 1.1; display: flex; align-items: center; gap: 14px; }
+.w-head p { font-size: 26px; color: var(--muted); margin-top: 8px; }
+.w-head.ghost { visibility: hidden; }
+.w-badge { min-width: 52px; height: 52px; padding: 0 12px; display: inline-grid; place-items: center; border-radius: 26px; background: var(--orange); color: var(--navy-deep); font-size: 32px; }
+
+.w-fill { flex: 1; min-height: 0; justify-content: center; }
+.w-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; text-align: center; min-height: 0; }
+.w-empty { flex: 1; display: grid; place-items: center; font-size: 30px; color: var(--muted); border: 4px dashed rgba(255,255,255,.18); border-radius: var(--radius); }
+
+/* פתיחה */
+.w-welcome h1 { font-size: 80px; font-weight: 900; line-height: 1.1; }
+.w-welcome .lead { font-size: 34px; max-width: 900px; }
+.w-gauge { width: 1100px; max-width: 100%; }
+.w-pulse { animation: pulse 2.4s infinite; }
+.how-title { font-size: 60px; font-weight: 900; }
+.how { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 34px; text-align: start; }
+.how li { display: flex; align-items: center; gap: 24px; font-size: 36px; font-weight: 700; }
+.how li b { flex: none; width: 80px; height: 80px; border-radius: 50%; background: var(--orange); color: var(--navy-deep); display: grid; place-items: center; font-size: 46px; font-weight: 900; }
+
+/* תמונת מצב */
+.w-body .stepper { gap: 70px; }
+.w-body .day { min-width: 420px; }
+.w-body .day b { font-size: 190px; }
+.w-body .pill { min-height: 100px; font-size: 38px; padding: 0 44px; }
+.w-fill .levels { flex: 1; }
+.w-fill .levels .lvl { flex: 1; }
+.w-fill .opts { flex: 1; }
+.w-body .opt { min-height: 0; font-size: 24px; }
+.w-fill .esc { flex: 1; }
+.w-body .esc-seg { min-height: 0; font-size: 30px; }
+.w-fill .trends { flex: 1; }
+.w-body .trend { min-height: 0; }
+
+.w-summary { justify-content: flex-start; gap: 6px; }
+.w-summary h4 { font-size: 30px; color: var(--orange); margin-top: 16px; }
+.srow { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 28px; color: var(--muted); }
+.srow b { color: var(--ink); font-size: 30px; text-align: end; }
+.lv-pill { background: var(--lvl); color: #fff !important; padding: 4px 18px; border-radius: 22px; font-size: 25px !important; white-space: nowrap; }
+
+/* בחירת נתונים */
+.w-picks { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 12px; overflow-y: auto; scrollbar-width: none; }
+.w-picks::-webkit-scrollbar { display: none; }
+.w-picks .pick { min-height: 0; padding: 8px 16px; gap: 12px; border-width: 4px; border-inline-start-width: 14px; }
+.w-picks .pick-icon { font-size: 44px; }
+.w-picks .pick-text strong { font-size: 25px; }
+.w-picks .pick-text small { font-size: 18px; }
+.w-picks .check { width: 48px; height: 48px; font-size: 30px; border-width: 3px; }
+
+/* דירוג – מדחום אופקי קומפקטי */
+.w-rate { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: min-content; align-content: start; gap: 12px; overflow-y: auto; scrollbar-width: none; }
+.w-rate::-webkit-scrollbar { display: none; }
+.w-rate-card { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: 22px; background: var(--panel); border-inline-start: 14px solid var(--c, var(--green)); }
+.w-rate-card.routine { --c: var(--green); }
+.w-rate-card.protect { --c: var(--red); }
+.w-rate-card.rated { background: var(--panel-2); }
+.w-rate-card .rate-icon { font-size: 46px; }
+.w-rate-card .rt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.w-rate-card .rt strong { font-size: 24px; line-height: 1.15; }
+.rt-read { font-size: 22px; font-weight: 900; color: var(--orange); }
+.w-rate-card .thermo { flex-direction: row-reverse; direction: ltr; width: auto; gap: 6px; flex: none; }
+.w-rate-card .seg { flex: none; width: 58px; min-height: 62px; border-radius: 12px; font-size: 28px; }
+
+/* המלצה */
+.w-col .verdict .gauge { width: 900px; max-width: 100%; }
+.w-col .verdict-plate h2 { font-size: 64px; }
+.w-stack { gap: 28px; align-items: stretch; text-align: start; }
+.w-stack .ai-line { font-size: 44px; }
+.w-stack .analysis h3 { font-size: 44px; }
+.w-sectors { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 18px; }
+.w-sectors .sector { justify-content: center; min-height: 0; }
+
+@media (prefers-reduced-motion: reduce) { .w-pulse { animation: none; } }

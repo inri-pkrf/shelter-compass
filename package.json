@@ -1,13 +1,10 @@
 {
   "name": "shelter-compass",
-  "homepage": "https://inri-pkrf.github.io/shelter-compass",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://inri-pkrf.github.io/shelter-compass",
   "proxy": "http://localhost:8787",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "concurrently -k -n server,client -c blue,green \"npm:server\" \"npm:client\"",
     "client": "react-scripts start",
     "server": "node server/index.cjs",

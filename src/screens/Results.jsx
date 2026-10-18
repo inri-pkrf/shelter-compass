@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Gauge from '../components/Gauge'
 import { LEVELS, SECTORS, levelOf, levelInfo } from '../lib/engine'
 
-export default function Results({ result, items, onEdit, onRestart }) {
+export default function Results({ result, items, ctx, onEdit, onRestart }) {
   const [score, setScore] = useState(0)
   useEffect(() => {
     const t = setTimeout(() => setScore(result.score), 500)
@@ -10,7 +10,7 @@ export default function Results({ result, items, onEdit, onRestart }) {
   }, [result.score])
 
   const lvl = levelInfo(result.score)
-  const top = [...items].sort((a, b) => b.rating - a.rating).slice(0, 6)
+  const sentence = String(result.paragraph).split(/\n+/).map((x) => x.trim()).filter(Boolean).join(' ')
 
   return (
     <section className="screen results">
@@ -22,6 +22,25 @@ export default function Results({ result, items, onEdit, onRestart }) {
             <h2>{result.headline || lvl.headline}</h2>
             <span className="level-name">{lvl.name}</span>
           </div>
+        </div>
+
+        <div className="analysis">
+          <div className="analysis-head">
+            <h3>עיבוד נתונים</h3>
+            <span className={`src ${result.source}`}>{result.source === 'ai' ? '✦ בינה מלאכותית' : 'חישוב מקומי'}</span>
+          </div>
+          <p className="ai-line"><b>המלצת AI:</b> {sentence}</p>
+        </div>
+
+        <div className="journey">
+          <div className="j-chip" style={{ '--lvl': LEVELS[ctx.prevLevel - 1].color }}>
+            <small>מדיניות קודמת</small><strong>{LEVELS[ctx.prevLevel - 1].name}</strong>
+          </div>
+          <span className="j-arrow">{lvl.id < ctx.prevLevel ? '⬅️ הקלה' : lvl.id > ctx.prevLevel ? '⬅️ החמרה' : '⬅️ ללא שינוי'}</span>
+          <div className="j-chip" style={{ '--lvl': lvl.color }}>
+            <small>המלצה</small><strong>{lvl.name}</strong>
+          </div>
+          <div className="j-meta">יום {ctx.day} למערכה{ctx.adversaries.length ? ` · ${ctx.adversaries.join(', ')}` : ''}</div>
         </div>
 
         <div className="sectors">
@@ -37,26 +56,20 @@ export default function Results({ result, items, onEdit, onRestart }) {
                 </div>
                 <div className="track"><i style={{ left: `${sc}%` }} /></div>
                 <p>{s.actions[l - 1]}</p>
+                {(() => {
+                  const c = ctx.current?.[s.id]
+                  const d = l - c
+                  return (
+                    <span className={`delta ${d < 0 ? 'ease' : d > 0 ? 'tight' : 'same'}`}>
+                      {d < 0 ? '⬇ הקלה' : d > 0 ? '⬆ החמרה' : '＝ ללא שינוי'} · היום: {LEVELS[c - 1].name}
+                    </span>
+                  )
+                })()}
               </div>
             )
           })}
         </div>
 
-        <div className="analysis">
-          <div className="analysis-head">
-            <h3>עיבוד נתונים</h3>
-            <span className={`src ${result.source}`}>{result.source === 'ai' ? '✦ נוצר על ידי בינה מלאכותית' : 'חישוב מקומי (ללא AI)'}</span>
-          </div>
-          <div className="chips">
-            {top.map(({ factor, rating }) => (
-              <span key={factor.id} className={`chip big ${factor.lean > 0 ? 'red' : 'green'}`}>
-                {factor.icon} {factor.label} · {rating}
-              </span>
-            ))}
-          </div>
-          <p className="analysis-text">{result.paragraph}</p>
-          <p className="disclaimer">כלי עזר חזותי לתמיכה בשיקול דעת – אינו מחליף הנחיה מבצעית.</p>
-        </div>
       </div>
 
       <footer className="bar">

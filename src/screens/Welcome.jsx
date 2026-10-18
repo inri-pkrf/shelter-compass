@@ -10,9 +10,11 @@ export default function Welcome({ onStart }) {
   return (
     <section className="screen welcome">
       <div className="welcome-gauge"><Gauge score={score} /></div>
+      <div className="welcome-text">
       <h1>איפה נקודת האיזון בין הצלת חיים לשגרה?</h1>
       <p className="lead">בחרו את הנתונים החשובים לכם, דרגו עד כמה כל אחד קריטי להחלטה, ותקבלו המלצה חזותית.</p>
       <button className="btn-xl" onClick={onStart}>התחילו בבחירת נתונים</button>
+      </div>
     </section>
   )
 }
