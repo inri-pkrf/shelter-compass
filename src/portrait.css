@@ -1,0 +1,127 @@
+/* ═══════════════════════════════════════════════════════════
+   טוטם אנכי (1080×1920) – גדלים מופחתים להפחתת עומס ויזואלי.
+   חל רק כשהקנבס במצב portrait (.stage.portrait). נטען אחרי styles.css.
+   כדי לשנות את הכול בבת אחת אפשר לשחק עם המספרים כאן.
+   ═══════════════════════════════════════════════════════════ */
+
+/* כותרת עליונה */
+.stage.portrait .top { height: 108px; padding: 0 44px; }
+.stage.portrait .logo-plate img { height: 66px; }
+.stage.portrait .brand strong { font-size: 30px; }
+.stage.portrait .brand small { font-size: 18px; }
+.stage.portrait .steps li { font-size: 18px; padding: 8px 14px; }
+.stage.portrait .steps li:not(.now) { padding: 8px 4px; }
+.stage.portrait .steps li b { width: 32px; height: 32px; font-size: 18px; border-width: 2px; }
+
+/* כותרות מסך */
+.stage.portrait .screen-head { padding: 30px 48px 12px; }
+.stage.portrait .screen-head h2 { font-size: 46px; }
+.stage.portrait .screen-head p { font-size: 24px; margin-top: 8px; }
+.stage.portrait .eyebrow { font-size: 22px; margin-bottom: 4px; }
+
+/* פס תחתון וכפתורים */
+.stage.portrait .bar { height: 118px; padding: 0 44px; }
+.stage.portrait .btn-xl { min-height: 100px; padding: 0 50px; font-size: 38px; box-shadow: 0 7px 0 #b8631b, 0 18px 36px rgba(0,0,0,.35); }
+.stage.portrait .btn-xl.sm { min-height: 82px; padding: 0 36px; font-size: 30px; }
+.stage.portrait .btn-ghost { min-height: 82px; padding: 0 34px; font-size: 27px; border-width: 3px; }
+.stage.portrait .bar-count { font-size: 24px; }
+.stage.portrait .bar-count b { font-size: 34px; }
+.stage.portrait .progress { width: 260px; height: 14px; }
+.stage.portrait .link { font-size: 22px; }
+
+/* פתיחה */
+.stage.portrait .welcome { gap: 28px; padding: 0 60px; }
+.stage.portrait .welcome-gauge { width: 760px; }
+.stage.portrait .welcome h1 { font-size: 62px; }
+.stage.portrait .lead { font-size: 29px; max-width: 760px; }
+.stage.portrait .welcome .btn-xl { margin-top: 12px; }
+.stage.portrait .gauge-end { font-size: 30px; }
+
+/* בחירת נתונים */
+.stage.portrait .tabs { gap: 10px; padding: 0 44px 16px; }
+.stage.portrait .tab { min-height: 96px; font-size: 21px; border-width: 3px; border-radius: 20px; }
+.stage.portrait .tab-icon { font-size: 34px; }
+.stage.portrait .badge { min-width: 38px; height: 38px; font-size: 22px; top: -10px; }
+.stage.portrait .grid { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 14px; padding: 6px 44px 28px; }
+.stage.portrait .pick { min-height: 140px; padding: 14px 18px; gap: 14px; border-width: 4px; border-inline-start-width: 14px; border-radius: 22px; }
+.stage.portrait .pick-icon { font-size: 46px; }
+.stage.portrait .pick-text strong { font-size: 24px; }
+.stage.portrait .pick-text small { font-size: 18px; }
+.stage.portrait .check { width: 46px; height: 46px; font-size: 28px; border-width: 3px; }
+
+/* דירוג */
+.stage.portrait .rate-card { min-height: 320px; padding: 16px; gap: 16px; border-width: 4px; border-inline-start-width: 14px; border-radius: 22px; }
+.stage.portrait .thermo { width: 100px; gap: 6px; }
+.stage.portrait .seg { min-height: 52px; font-size: 26px; border-radius: 12px; }
+.stage.portrait .seg.cap { border-radius: 44px 44px 12px 12px; }
+.stage.portrait .seg.bulb { border-radius: 12px 12px 44px 44px; }
+.stage.portrait .rate-icon { font-size: 44px; }
+.stage.portrait .rate-text strong { font-size: 24px; }
+.stage.portrait .rate-text small { font-size: 18px; }
+.stage.portrait .rate-readout { font-size: 28px; }
+.stage.portrait .chip { font-size: 18px; padding: 4px 12px; }
+
+/* תמונת מצב */
+.stage.portrait .ctx-body { padding: 6px 44px 24px; gap: 16px; }
+.stage.portrait .panel { padding: 22px 24px; gap: 16px; border-radius: 24px; }
+.stage.portrait .panel h3 { font-size: 32px; }
+.stage.portrait .panel h3 small { font-size: 22px; }
+.stage.portrait .stepper { gap: 36px; }
+.stage.portrait .round { width: 112px; height: 112px; font-size: 72px; box-shadow: 0 6px 0 #b8631b; }
+.stage.portrait .day { min-width: 300px; gap: 10px; }
+.stage.portrait .day b { font-size: 120px; }
+.stage.portrait .day small { font-size: 28px; }
+.stage.portrait .pill { min-height: 76px; padding: 0 30px; font-size: 30px; border-width: 3px; }
+.stage.portrait .lvl { min-height: 100px; padding: 10px 22px; gap: 20px; border-width: 4px; border-radius: 22px; }
+.stage.portrait .lvl b { width: 64px; height: 64px; font-size: 40px; }
+.stage.portrait .lvl strong { font-size: 31px; }
+.stage.portrait .lvl small { font-size: 21px; }
+.stage.portrait .opt { min-height: 150px; padding: 12px 8px; font-size: 19px; gap: 8px; border-width: 3px; border-radius: 18px; }
+.stage.portrait .opt b { width: 46px; height: 46px; font-size: 28px; }
+.stage.portrait .esc { gap: 10px; }
+.stage.portrait .esc-seg { min-height: 250px; font-size: 24px; border-width: 3px; }
+.stage.portrait .esc-icon { font-size: 62px; }
+.stage.portrait .trends { gap: 12px; }
+.stage.portrait .trend { min-height: 170px; border-width: 3px; }
+.stage.portrait .trend span { font-size: 64px; }
+.stage.portrait .trend b { font-size: 32px; }
+
+/* עיבוד */
+.stage.portrait .core { left: -110px; top: -110px; width: 220px; height: 220px; }
+.stage.portrait .core span { font-size: 90px; }
+.stage.portrait .flyer { font-size: 22px; padding: 8px 18px; }
+.stage.portrait .proc-msg { font-size: 42px; bottom: 200px; }
+
+/* המלצה */
+.stage.portrait .results .scroll { padding: 24px 44px 24px; gap: 20px; }
+.stage.portrait .verdict .gauge { width: 660px; }
+.stage.portrait .verdict-plate { padding: 18px 50px 22px; border-radius: 32px; }
+.stage.portrait .verdict-plate small { font-size: 22px; }
+.stage.portrait .verdict-plate h2 { font-size: 58px; }
+.stage.portrait .level-name { font-size: 30px; }
+.stage.portrait .analysis { padding: 22px 28px; gap: 12px; border-width: 5px; border-radius: 24px; }
+.stage.portrait .analysis h3 { font-size: 34px; }
+.stage.portrait .src { font-size: 18px; padding: 6px 14px; }
+.stage.portrait .ai-line { font-size: 29px; }
+.stage.portrait .journey { padding: 16px 20px; gap: 12px; border-radius: 24px; }
+.stage.portrait .j-chip { padding: 10px 14px; }
+.stage.portrait .j-chip small { font-size: 19px; }
+.stage.portrait .j-chip strong { font-size: 28px; }
+.stage.portrait .j-arrow { font-size: 26px; }
+.stage.portrait .j-meta { font-size: 22px; }
+.stage.portrait .sectors { gap: 14px; }
+.stage.portrait .sector { padding: 16px 18px; gap: 10px; border-inline-start-width: 14px; border-radius: 22px; }
+.stage.portrait .sector-icon { font-size: 38px; }
+.stage.portrait .sector-top { gap: 10px; }
+.stage.portrait .sector-top strong { font-size: 23px; }
+.stage.portrait .sector-level { font-size: 18px; padding: 4px 12px; }
+.stage.portrait .sector p { font-size: 22px; }
+.stage.portrait .delta { font-size: 18px; padding: 4px 12px; }
+.stage.portrait .track { height: 18px; }
+.stage.portrait .track i { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-width: 6px; }
+
+/* "עדיין כאן?" */
+.stage.portrait .dialog { padding: 50px 70px; gap: 20px; }
+.stage.portrait .dialog h2 { font-size: 64px; }
+.stage.portrait .dialog p { font-size: 32px; }
+.stage.portrait .dialog b { font-size: 52px; }
