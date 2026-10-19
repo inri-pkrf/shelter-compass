@@ -5,7 +5,8 @@ import { LEVELS, SECTORS, levelOf, levelInfo } from '../lib/engine'
 export default function Results({ result, items, ctx, onEdit, onRestart }) {
   const [score, setScore] = useState(0)
   useEffect(() => {
-    const t = setTimeout(() => setScore(result.score), 500)
+    // המחוג בדיוק באמצע הצבע של הרמה שהומלצה (12.5 / 37.5 / 62.5 / 87.5)
+    const t = setTimeout(() => setScore((levelOf(result.score) - 1) * 25 + 12.5), 500)
     return () => clearTimeout(t)
   }, [result.score])
 
