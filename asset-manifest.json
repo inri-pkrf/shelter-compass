@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/shelter-compass/static/css/main.be04418a.css",
-    "main.js": "/shelter-compass/static/js/main.ecc2bcf7.js",
+    "main.css": "/shelter-compass/static/css/main.d64aaf99.css",
+    "main.js": "/shelter-compass/static/js/main.d3aa9b01.js",
     "static/media/heebo-latin-700-normal.woff": "/shelter-compass/static/media/heebo-latin-700-normal.882bae9e61087144dbb9.woff",
     "static/media/heebo-latin-900-normal.woff": "/shelter-compass/static/media/heebo-latin-900-normal.44a24f25aa098b3bedd2.woff",
     "static/media/heebo-latin-400-normal.woff": "/shelter-compass/static/media/heebo-latin-400-normal.f9c71ee28df2cd8f2074.woff",
@@ -34,11 +34,11 @@
     "static/media/heebo-hebrew-900-normal.woff2": "/shelter-compass/static/media/heebo-hebrew-900-normal.4d2b0585a80ffc6e8f10.woff2",
     "static/media/heebo-hebrew-400-normal.woff2": "/shelter-compass/static/media/heebo-hebrew-400-normal.c4b93fce9e858d23dfbb.woff2",
     "index.html": "/shelter-compass/index.html",
-    "main.be04418a.css.map": "/shelter-compass/static/css/main.be04418a.css.map",
-    "main.ecc2bcf7.js.map": "/shelter-compass/static/js/main.ecc2bcf7.js.map"
+    "main.d64aaf99.css.map": "/shelter-compass/static/css/main.d64aaf99.css.map",
+    "main.d3aa9b01.js.map": "/shelter-compass/static/js/main.d3aa9b01.js.map"
   },
   "entrypoints": [
-    "static/css/main.be04418a.css",
-    "static/js/main.ecc2bcf7.js"
+    "static/css/main.d64aaf99.css",
+    "static/js/main.d3aa9b01.js"
   ]
 }
