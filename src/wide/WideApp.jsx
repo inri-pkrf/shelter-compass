@@ -254,14 +254,14 @@ const SCALE = [
   { n: 2, color: '#F2D030', label: 'נמוך' },
   { n: 1, color: '#2FA84F', label: 'שולי' },
 ]
-const CAP = 10 // כמה מדחומים נכנסים במסך אחד (5 בשורה × 2 שורות)
+const CAP = 12 // כמה מדחומים נכנסים במסך אחד (6 בשורה × 2 שורות). 3 מסכים = 36, מספיק לכל 32 הנתונים בלי גלילה
 
 function RateW({ sh, selected, ratings, setRatings, onBack, onNext }) {
   const done = selected.filter((id) => ratings[id]).length
   const ready = selected.length > 0 && done === selected.length
 
-  // עד 10 נתונים: כולם במסך האמצעי.
-  // יותר מ-10: הזרימה מימין לשמאל (עברית): קודם המסך הימני, אחריו האמצעי, ואז השמאלי.
+  // עד 12 נתונים: כולם במסך האמצעי.
+  // יותר מ-12: הזרימה מימין לשמאל (עברית): קודם המסך הימני, אחריו האמצעי, ואז השמאלי.
   const list = FACTORS.filter((f) => selected.includes(f.id))
   const overflow = list.length > CAP
   const rightList = overflow ? list.slice(0, CAP) : []
@@ -288,15 +288,17 @@ function RateW({ sh, selected, ratings, setRatings, onBack, onNext }) {
   const legend = (
     <div className="panel w-fill w-legend">
       <h3>איך מדרגים?</h3>
-      {SCALE.map((x) => (
-        <div className="lg-row" key={x.n}>
-          <b className="lg-n" style={{ '--c': x.color }}>{x.n}</b>
-          <span>{x.label}</span>
-        </div>
-      ))}
-      <div className="lg-sep" />
-      <div className="lg-row"><i className="lg-dot green" /><span>מושך לשגרה</span></div>
-      <div className="lg-row"><i className="lg-dot red" /><span>מושך להתגוננות</span></div>
+      <div className="lg-list">
+        {SCALE.map((x) => (
+          <div className="lg-row" key={x.n}>
+            <b className="lg-n" style={{ '--c': x.color }}>{x.n}</b>
+            <span>{x.label}</span>
+          </div>
+        ))}
+        <div className="lg-sep" />
+        <div className="lg-row"><i className="lg-dot green" /><span>מושך לשגרה</span></div>
+        <div className="lg-row"><i className="lg-dot red" /><span>מושך להתגוננות</span></div>
+      </div>
     </div>
   )
 
