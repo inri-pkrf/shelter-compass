@@ -62,19 +62,36 @@
 .w-picks .pick-text small { font-size: 18px; }
 .w-picks .check { width: 48px; height: 48px; font-size: 30px; border-width: 3px; }
 
-/* דירוג – מדחום אופקי קומפקטי */
-.w-rate { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: min-content; align-content: start; gap: 12px; overflow-y: auto; scrollbar-width: none; }
-.w-rate::-webkit-scrollbar { display: none; }
-.w-rate-card { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: 22px; background: var(--panel); border-inline-start: 14px solid var(--c, var(--green)); }
-.w-rate-card.routine { --c: var(--green); }
-.w-rate-card.protect { --c: var(--red); }
-.w-rate-card.rated { background: var(--panel-2); }
-.w-rate-card .rate-icon { font-size: 46px; }
-.w-rate-card .rt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.w-rate-card .rt strong { font-size: 24px; line-height: 1.15; }
-.rt-read { font-size: 22px; font-weight: 900; color: var(--orange); }
-.w-rate-card .thermo { flex-direction: row-reverse; direction: ltr; width: auto; gap: 6px; flex: none; }
-.w-rate-card .seg { flex: none; width: 58px; min-height: 62px; border-radius: 12px; font-size: 28px; }
+/* דירוג – מדחומים אנכיים (כמו בטוטם), 5 בשורה × 2 שורות לכל מסך */
+.w-vgrid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-auto-rows: calc(50% - 7px); gap: 14px; overflow-y: auto; align-content: start; scrollbar-width: none; }
+.w-vgrid::-webkit-scrollbar { display: none; }
+.w-vcard { display: flex; gap: 12px; padding: 12px; min-height: 0; border-radius: 22px; background: var(--panel); border-top: 10px solid var(--c, var(--green)); }
+.w-vcard.routine { --c: var(--green); }
+.w-vcard.protect { --c: var(--red); }
+.w-vcard.rated { background: var(--panel-2); }
+.w-vcard .thermo { width: 84px; flex: none; align-self: stretch; gap: 6px; }
+.w-vcard .seg { flex: 1; min-height: 0; width: 100%; font-size: 26px; }
+.vt { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.vt-icon { font-size: 40px; line-height: 1; }
+.vt strong { font-size: 22px; line-height: 1.15; }
+.vt small { font-size: 16px; line-height: 1.2; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.vt .chip { align-self: flex-start; font-size: 15px; padding: 3px 10px; }
+.vt-read { font-size: 22px; font-weight: 900; color: var(--orange); }
+
+/* מסכי צד בדירוג (כשאין גלישה) */
+.w-legend { gap: 22px; justify-content: center; }
+.lg-row { display: flex; align-items: center; gap: 22px; font-size: 36px; font-weight: 700; }
+.lg-n { width: 72px; height: 72px; border-radius: 18px; display: grid; place-items: center; background: var(--c); color: #fff; font-size: 40px; font-weight: 900; }
+.lg-sep { height: 2px; background: rgba(255,255,255,.14); margin: 6px 0; }
+.lg-dot { width: 40px; height: 40px; border-radius: 50%; margin: 0 16px; }
+.lg-dot.green { background: var(--green); }
+.lg-dot.red { background: var(--red); }
+.w-progress { align-items: center; justify-content: center; gap: 28px; text-align: center; }
+.w-prog-num { display: flex; align-items: baseline; gap: 20px; }
+.w-prog-num b { font-size: 220px; font-weight: 900; line-height: 1; color: var(--orange); }
+.w-prog-num span { font-size: 44px; font-weight: 700; }
+.w-progress .progress { width: 70%; height: 22px; }
+.w-progress p { font-size: 32px; color: var(--muted); }
 
 /* המלצה */
 .w-col .verdict .gauge { width: 900px; max-width: 100%; }
@@ -86,3 +103,10 @@
 .w-sectors .sector { justify-content: center; min-height: 0; }
 
 @media (prefers-reduced-motion: reduce) { .w-pulse { animation: none; } }
+
+/* שלב האיום: מסך ימני = כותרת, אמצעי = סבירות, שמאלי = מגמה */
+.w-intro .eyebrow { font-size: 30px; }
+.w-intro-title { font-size: 92px; font-weight: 900; line-height: 1.1; }
+.w-intro p { font-size: 38px; color: var(--muted); }
+.w-threat { margin-top: 24px; }
+.w-threat .esc, .w-threat .trends { flex: none; height: 520px; }

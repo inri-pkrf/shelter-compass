@@ -1,4 +1,4 @@
-export const ADVERSARIES = ['איראן', 'חיזבאללה', 'חמאס', "החות'ים", 'מיליציות בעיראק']
+export const ADVERSARIES = ['עזה', 'לבנון', 'איראן', "תימן", 'עיראק ', 'סוריה']
 
 export const ESCALATION = [
   { n: 1, label: 'נמוכה מאוד', icon: '🕊️', color: '#2FA84F' },

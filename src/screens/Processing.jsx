@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const MESSAGES = ['קורא את הנתונים שבחרתם…', 'שוקל את רמת הקריטיות של כל נתון…', 'מאזן בין הצלת חיים לשגרה…', 'בונה המלצה לכל מגזר…']
+const MESSAGES = ['קורא את הנתונים שבחרתם…', 'שוקל את רמת הקריטיות של כל נתון…', 'מאזן בין הצלת חיים לשגרה…', 'בונה המלצה למדיניות התגוננות…']
 
 export default function Processing({ items }) {
   const [m, setM] = useState(0)

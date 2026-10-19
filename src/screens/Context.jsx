@@ -8,7 +8,7 @@ export default function Context({ ctx, setCtx, onNext, onBack }) {
   return (
     <section className="screen ctx">
       <div className="screen-head">
-        <small className="eyebrow">תמונת מצב · 1 מתוך 3</small>
+        <small className="eyebrow">תמונת מצב · 1 מתוך 2</small>
         <h2>מאיפה אנחנו מתחילים?</h2>
         <p>לפני שבוחנים שינוי במדיניות – מגדירים את נקודת המוצא.</p>
       </div>

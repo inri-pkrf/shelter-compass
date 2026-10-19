@@ -99,7 +99,7 @@ function WelcomeW({ sh, onStart }) {
             <li><b>1</b>מגדירים את תמונת המצב</li>
             <li><b>2</b>בוחרים נתונים שחשובים להחלטה</li>
             <li><b>3</b>מדרגים עד כמה כל נתון קריטי</li>
-            <li><b>4</b>מקבלים המלצה לכל מגזר</li>
+            <li><b>4</b>מקבלים המלצה למדיניות התגוננות </li>
           </ol>
         </div>
       }
@@ -115,7 +115,7 @@ function ContextW({ sh, ctx, setCtx, onBack, onNext }) {
   return (
     <Shell {...sh}
       right={<>
-        <Head eyebrow="תמונת מצב · 1 מתוך 3" title="מאיפה אנחנו מתחילים?" sub="לפני שבוחנים שינוי במדיניות – מגדירים את נקודת המוצא." />
+        <Head eyebrow="תמונת מצב · 1 מתוך 2" title="מאיפה אנחנו מתחילים?" sub="לפני שבוחנים שינוי במדיניות – מגדירים את נקודת המוצא." />
         <div className="panel w-fill">
           <h3>כמה זמן אנחנו במערכה?</h3>
           <div className="stepper">
@@ -159,85 +159,34 @@ function ContextW({ sh, ctx, setCtx, onBack, onNext }) {
   )
 }
 
-/* סיכום תמונת המצב (מסך שמאלי בשלבי תמונת המצב 2 ו-3) */
-function Summary({ ctx, threat }) {
-  const prev = LEVELS[ctx.prevLevel - 1]
-  const esc = ESCALATION.find((e) => e.n === ctx.escalation)
-  const trend = TRENDS.find((t) => t.id === ctx.trend)
-  return (
-    <div className="panel w-fill w-summary">
-      <h3>סיכום תמונת המצב</h3>
-      <div className="srow"><span>יום במערכה</span><b>{ctx.day}</b></div>
-      <div className="srow"><span>מול מי</span><b>{ctx.adversaries.length ? ctx.adversaries.join(', ') : '—'}</b></div>
-      {prev && <div className="srow"><span>מדיניות קודמת</span><b className="lv-pill" style={{ '--lvl': prev.color }}>{prev.name}</b></div>}
-      {ctx.current && (
-        <>
-          <h4>המצב בפועל היום</h4>
-          {SECTORS.map((s) => {
-            const l = LEVELS[(ctx.current[s.id] || 1) - 1]
-            return (
-              <div className="srow" key={s.id}>
-                <span>{s.icon} {s.name}</span>
-                <b className="lv-pill" style={{ '--lvl': l.color }}>{l.name}</b>
-              </div>
-            )
-          })}
-        </>
-      )}
-      {threat && (
-        <>
-          <h4>התפתחות האיום</h4>
-          <div className="srow"><span>סבירות להגברה</span><b>{esc ? `${esc.icon} ${esc.label}` : '—'}</b></div>
-          <div className="srow"><span>מגמה</span><b>{trend ? `${trend.icon} ${trend.label}` : '—'}</b></div>
-        </>
-      )}
-    </div>
-  )
-}
-
-/* ───────── תמונת מצב 2: המצב בפועל ───────── */
-function StateW({ sh, ctx, setCtx, onBack, onNext }) {
-  const setSector = (id, lvl) => setCtx({ ...ctx, current: { ...ctx.current, [id]: lvl }, currentTouched: true })
-  const sectorPanel = (id) => {
-    const s = SECTORS.find((x) => x.id === id)
-    return (
-      <div className="panel w-fill" key={id}>
-        <h3><span className="sector-icon">{s.icon}</span> {s.name}</h3>
-        <div className="opts">
-          {LEVELS.map((l) => (
-            <button key={l.id} className={`opt ${ctx.current[s.id] === l.id ? 'on' : ''}`}
-              style={{ '--lvl': l.color }} aria-pressed={ctx.current[s.id] === l.id}
-              onClick={() => setSector(s.id, l.id)}>
-              <b>{l.id}</b>
-              <span>{s.actions[l.id - 1]}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-  return (
-    <Shell {...sh}
-      right={<>
-        <Head eyebrow="תמונת מצב · 2 מתוך 3" title="מה המצב בפועל היום?" sub="מולא מראש לפי המדיניות הקודמת – תקנו בכל מגזר לפי המציאות." />
-        {sectorPanel('essential')}
-        {sectorPanel('work')}
-      </>}
-      mid={<><Head ghost />{sectorPanel('gather')}{sectorPanel('edu')}</>}
-      left={<><Head ghost /><Summary ctx={ctx} /></>}
-      bar={<Nav onBack={onBack} onNext={onNext} nextLabel="המשך" />}
-    />
-  )
-}
-
 /* ───────── תמונת מצב 3: האיום ───────── */
 function ThreatW({ sh, ctx, setCtx, onBack, onNext }) {
   const ready = ctx.escalation && ctx.trend
   return (
     <Shell {...sh}
-      right={<>
-        <Head eyebrow="תמונת מצב · 3 מתוך 3" title="לאן האיום מתפתח?" sub="הערכה שלכם לגבי הימים הקרובים." />
-        <div className="panel w-fill">
+      right={
+        <div className="w-center w-intro">
+          <small className="eyebrow">תמונת מצב · 2 מתוך 2</small>
+          <h2 className="w-intro-title">לאן האיום מתפתח?</h2>
+          <p>הערכה שלכם לגבי הימים הקרובים.</p>
+        </div>
+      }
+      mid={
+        <div className="panel w-fill w-threat">
+          <h3>מה מגמת האיום בימים האחרונים?</h3>
+          <div className="trends">
+            {TRENDS.map((t) => (
+              <button key={t.id} className={`trend ${ctx.trend === t.id ? 'on' : ''}`}
+                style={{ '--c': t.color }} aria-pressed={ctx.trend === t.id}
+                onClick={() => setCtx({ ...ctx, trend: t.id })}>
+                <span>{t.icon}</span><b>{t.label}</b>
+              </button>
+            ))}
+          </div>
+        </div>
+      }
+      left={
+        <div className="panel w-fill w-threat">
           <h3>מה הסבירות להגברת האיום?</h3>
           <div className="esc">
             {ESCALATION.map((e) => (
@@ -250,23 +199,7 @@ function ThreatW({ sh, ctx, setCtx, onBack, onNext }) {
             ))}
           </div>
         </div>
-      </>}
-      mid={<>
-        <Head ghost />
-        <div className="panel w-fill">
-          <h3>מה מגמת האיום בימים האחרונים?</h3>
-          <div className="trends">
-            {TRENDS.map((t) => (
-              <button key={t.id} className={`trend ${ctx.trend === t.id ? 'on' : ''}`}
-                style={{ '--c': t.color }} aria-pressed={ctx.trend === t.id}
-                onClick={() => setCtx({ ...ctx, trend: t.id })}>
-                <span>{t.icon}</span><b>{t.label}</b>
-              </button>
-            ))}
-          </div>
-        </div>
-      </>}
-      left={<><Head ghost /><Summary ctx={ctx} threat /></>}
+      }
       bar={<Nav onBack={onBack} onNext={onNext} disabled={!ready}
         nextLabel={ready ? 'לבחירת הנתונים' : 'השלימו את שני הנתונים'} />}
     />
@@ -314,43 +247,76 @@ function SelectW({ sh, selected, setSelected, onBack, onNext }) {
 }
 
 /* ───────── דירוג קריטיות ───────── */
+const SCALE = [
+  { n: 5, color: '#D62839', label: 'קריטי' },
+  { n: 4, color: '#E2692A', label: 'גבוה' },
+  { n: 3, color: '#EBA52B', label: 'בינוני' },
+  { n: 2, color: '#F2D030', label: 'נמוך' },
+  { n: 1, color: '#2FA84F', label: 'שולי' },
+]
+const CAP = 10 // כמה מדחומים נכנסים במסך אחד (5 בשורה × 2 שורות)
+
 function RateW({ sh, selected, ratings, setRatings, onBack, onNext }) {
   const done = selected.filter((id) => ratings[id]).length
-  const ready = done === selected.length
-  const [r, m, l] = groupsPerScreen().map((groups) =>
-    groups.length === 0 ? <Head ghost /> : groups.map((g) => {
-      const list = FACTORS.filter((f) => f.group === g.id && selected.includes(f.id))
-      return (
-        <Fragment key={g.id}>
-          <div className="w-head">
-            <h2><span>{g.icon}</span> {g.name}</h2>
-            <p>לחצו על המדחום: 1 – שולי, 5 – קריטי ביותר.</p>
-          </div>
-          {list.length === 0 ? (
-            <div className="w-empty">לא נבחרו נתונים בקטגוריה זו</div>
-          ) : (
-            <div className="w-rate">
-              {list.map((f) => {
-                const v = ratings[f.id] || 0
-                return (
-                  <article key={f.id} className={`w-rate-card ${f.lean > 0 ? 'protect' : 'routine'} ${v ? 'rated' : ''}`}>
-                    <span className="rate-icon">{f.icon}</span>
-                    <div className="rt">
-                      <strong>{f.label}</strong>
-                      <span className="rt-read">{v ? `${v} · ${RATING_LABEL[v]}` : 'טרם דורג'}</span>
-                    </div>
-                    <Thermometer value={v} name={f.label} onChange={(n) => setRatings({ ...ratings, [f.id]: n })} />
-                  </article>
-                )
-              })}
-            </div>
-          )}
-        </Fragment>
-      )
-    })
+  const ready = selected.length > 0 && done === selected.length
+
+  // עד 10 נתונים: כולם במסך האמצעי.
+  // יותר מ-10: הזרימה מימין לשמאל (עברית): קודם המסך הימני, אחריו האמצעי, ואז השמאלי.
+  const list = FACTORS.filter((f) => selected.includes(f.id))
+  const overflow = list.length > CAP
+  const rightList = overflow ? list.slice(0, CAP) : []
+  const midList = overflow ? list.slice(CAP, CAP * 2) : list
+  const leftList = overflow ? list.slice(CAP * 2) : []
+
+  const card = (f) => {
+    const v = ratings[f.id] || 0
+    return (
+      <article key={f.id} className={`w-vcard ${f.lean > 0 ? 'protect' : 'routine'} ${v ? 'rated' : ''}`}>
+        <Thermometer value={v} name={f.label} onChange={(n) => setRatings({ ...ratings, [f.id]: n })} />
+        <div className="vt">
+          <span className="vt-icon">{f.icon}</span>
+          <strong>{f.label}</strong>
+          <small>{f.desc}</small>
+          <span className={`chip ${f.lean > 0 ? 'red' : 'green'}`}>{f.lean > 0 ? 'מושך להתגוננות' : 'מושך לשגרה'}</span>
+          <span className="vt-read">{v ? `${v} · ${RATING_LABEL[v]}` : 'טרם דורג'}</span>
+        </div>
+      </article>
+    )
+  }
+  const grid = (arr) => <div className="w-vgrid">{arr.map(card)}</div>
+
+  const legend = (
+    <div className="panel w-fill w-legend">
+      <h3>איך מדרגים?</h3>
+      {SCALE.map((x) => (
+        <div className="lg-row" key={x.n}>
+          <b className="lg-n" style={{ '--c': x.color }}>{x.n}</b>
+          <span>{x.label}</span>
+        </div>
+      ))}
+      <div className="lg-sep" />
+      <div className="lg-row"><i className="lg-dot green" /><span>מושך לשגרה</span></div>
+      <div className="lg-row"><i className="lg-dot red" /><span>מושך להתגוננות</span></div>
+    </div>
   )
+
+  const progress = (
+    <div className="panel w-fill w-progress">
+      <h3>התקדמות הדירוג</h3>
+      <div className="w-prog-num"><b>{done}</b><span>מתוך {selected.length}</span></div>
+      <div className="progress"><i style={{ width: `${selected.length ? (100 * done) / selected.length : 0}%` }} /></div>
+      <p>{ready ? 'הכול מדורג – אפשר להמשיך לעיבוד.' : 'דרגו את כל הנתונים כדי להמשיך.'}</p>
+    </div>
+  )
+
+  const mainHead = <Head title="עד כמה כל נתון קריטי להחלטה?" sub="לחצו על המדחום: 1 – שולי, 5 – קריטי ביותר." />
+  const more = <Head title="המשך הדירוג" sub="לחצו על המדחום: 1 – שולי, 5 – קריטי ביותר." />
+
   return (
-    <Shell {...sh} right={r} mid={m} left={l}
+    <Shell {...sh}
+      right={overflow ? <>{mainHead}{grid(rightList)}</> : <><Head ghost />{legend}</>}
+      mid={<>{overflow ? more : mainHead}{grid(midList)}</>}
+      left={leftList.length ? <>{more}{grid(leftList)}</> : <><Head ghost />{progress}</>}
       bar={<Nav onBack={onBack} onNext={onNext} disabled={!ready}
         nextLabel={ready ? 'עיבוד נתונים' : 'דרגו את כל הנתונים'}
         center={<>
@@ -451,11 +417,10 @@ export default function WideApp(p) {
     case 'welcome':
       return <WelcomeW sh={sh} onStart={() => setScreen('context')} />
     case 'context':
-      return <ContextW sh={sh} ctx={ctx} setCtx={setCtx} onBack={restart} onNext={goState} />
-    case 'state':
-      return ctx.current ? <StateW sh={sh} ctx={ctx} setCtx={setCtx} onBack={() => setScreen('context')} onNext={() => setScreen('threat')} /> : null
+      return <ContextW sh={sh} ctx={ctx} setCtx={setCtx} onBack={restart} onNext={() => goState('threat')} />
+    case 'state': // לא בשימוש בכיתה האימרסיבית
     case 'threat':
-      return <ThreatW sh={sh} ctx={ctx} setCtx={setCtx} onBack={() => setScreen('state')} onNext={() => setScreen('select')} />
+      return <ThreatW sh={sh} ctx={ctx} setCtx={setCtx} onBack={() => setScreen('context')} onNext={() => setScreen('select')} />
     case 'select':
       return <SelectW sh={sh} selected={selected} setSelected={setSelected} onBack={() => setScreen('threat')} onNext={() => setScreen('rate')} />
     case 'rate':

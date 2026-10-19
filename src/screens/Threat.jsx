@@ -5,12 +5,25 @@ export default function Threat({ ctx, setCtx, onNext, onBack }) {
   return (
     <section className="screen ctx">
       <div className="screen-head">
-        <small className="eyebrow">תמונת מצב · 3 מתוך 3</small>
+        <small className="eyebrow">תמונת מצב · 2 מתוך 2</small>
         <h2>לאן האיום מתפתח?</h2>
         <p>הערכה שלכם לגבי הימים הקרובים.</p>
       </div>
 
       <div className="scroll ctx-body">
+        <div className="panel">
+          <h3>מה מגמת האיום בימים האחרונים?</h3>
+          <div className="trends">
+            {TRENDS.map((t) => (
+              <button key={t.id} className={`trend ${ctx.trend === t.id ? 'on' : ''}`}
+                style={{ '--c': t.color }} aria-pressed={ctx.trend === t.id}
+                onClick={() => setCtx({ ...ctx, trend: t.id })}>
+                <span>{t.icon}</span><b>{t.label}</b>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="panel">
           <h3>מה הסבירות להגברת האיום?</h3>
           <div className="esc">
@@ -20,19 +33,6 @@ export default function Threat({ ctx, setCtx, onNext, onBack }) {
                 onClick={() => setCtx({ ...ctx, escalation: e.n })}>
                 <span className="esc-icon">{e.icon}</span>
                 <b>{e.label}</b>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="panel">
-          <h3>מה מגמת האיום בימים האחרונים?</h3>
-          <div className="trends">
-            {TRENDS.map((t) => (
-              <button key={t.id} className={`trend ${ctx.trend === t.id ? 'on' : ''}`}
-                style={{ '--c': t.color }} aria-pressed={ctx.trend === t.id}
-                onClick={() => setCtx({ ...ctx, trend: t.id })}>
-                <span>{t.icon}</span><b>{t.label}</b>
               </button>
             ))}
           </div>

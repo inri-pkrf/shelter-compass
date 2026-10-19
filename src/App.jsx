@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Welcome from './screens/Welcome'
 import Context from './screens/Context'
-import CurrentState from './screens/CurrentState'
 import Threat from './screens/Threat'
 import SelectFactors from './screens/SelectFactors'
 import RateFactors from './screens/RateFactors'
@@ -62,12 +61,12 @@ export default function App() {
   }, [])
 
   // מעבר מ"נקודת מוצא" ל"המצב בפועל": מילוי מראש לפי המדיניות הקודמת (אם לא תוקן ידנית)
-  const goState = () => {
+  const goState = (next = 'threat') => {
     if (!ctx.currentTouched) {
       const all = { essential: ctx.prevLevel, work: ctx.prevLevel, gather: ctx.prevLevel, edu: ctx.prevLevel }
       setCtx({ ...ctx, current: all })
     } else if (!ctx.current) setCtx({ ...ctx })
-    setScreen('state')
+    setScreen(next)
   }
 
   const run = async () => {
@@ -128,13 +127,10 @@ export default function App() {
             <main>
               {screen === 'welcome' && <Welcome onStart={() => setScreen('context')} />}
               {screen === 'context' && (
-                <Context ctx={ctx} setCtx={setCtx} onBack={restart} onNext={goState} />
-              )}
-              {screen === 'state' && ctx.current && (
-                <CurrentState ctx={ctx} setCtx={setCtx} onBack={() => setScreen('context')} onNext={() => setScreen('threat')} />
+                <Context ctx={ctx} setCtx={setCtx} onBack={restart} onNext={() => goState()} />
               )}
               {screen === 'threat' && (
-                <Threat ctx={ctx} setCtx={setCtx} onBack={() => setScreen('state')} onNext={() => setScreen('select')} />
+                <Threat ctx={ctx} setCtx={setCtx} onBack={() => setScreen('context')} onNext={() => setScreen('select')} />
               )}
               {screen === 'select' && (
                 <SelectFactors selected={selected} setSelected={setSelected}
