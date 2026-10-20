@@ -125,7 +125,7 @@ export default function App() {
                   ))}
                 </ol>
               )}
-              <ScreenButtons fs={fs} />
+              {fit.mode === 'portrait' && <ScreenButtons fs={fs} />}
             </header>
 
             <main>

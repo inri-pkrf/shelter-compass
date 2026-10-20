@@ -5,7 +5,6 @@ import { FACTORS, GROUPS, FACTOR_BY_ID } from '../data/factors'
 import { ADVERSARIES, ESCALATION, TRENDS } from '../data/context'
 import { LEVELS, SECTORS, levelOf, levelInfo, tightenAdvice } from '../lib/engine'
 import logo from '../assets/college-logo.svg'
-import ScreenButtons from '../components/ScreenButtons'
 
 /* ════════════════════════════════════════════════════════════════
    פריסת הכיתה האימרסיבית: שלושה מסכים (3 × 3840×2160).
@@ -71,7 +70,7 @@ function Shell({ steps, step, fs, right, mid, left, bar, overlay }) {
     <div className="w-root">
       <Col top={<Logo />}>{right}</Col>
       <Col top={<Title />} bar={bar}>{mid}</Col>
-      <Col top={<><Steps steps={steps} step={step} /><ScreenButtons fs={fs} /></>}>{left}</Col>
+      <Col top={<Steps steps={steps} step={step} />}>{left}</Col>
       {overlay}
     </div>
   )

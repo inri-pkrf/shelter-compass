@@ -6,5 +6,3 @@
 .stage.portrait .ctl { gap: 10px; }
 .stage.portrait .ctl-btn { width: 56px; height: 56px; }
 .stage.portrait .ctl-btn svg { width: 30px; height: 30px; }
-/* כיתה אימרסיבית: הכפתורים בקצה השמאלי, ליד סרגל השלבים */
-.w-col:last-child .w-top { gap: 36px; }
