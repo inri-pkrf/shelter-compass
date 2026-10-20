@@ -29,7 +29,10 @@ export async function analyze(items, ctx) {
     for (const k of Object.keys(baseline.sectors)) {
       sectors[k] = valid(d.sectors[k]) ? Math.round(d.sectors[k]) : baseline.sectors[k]
     }
-    return { score: Math.round(d.score), sectors, headline: d.headline || '', paragraph: d.paragraph, source: 'ai' }
+    return {
+      score: Math.round(d.score), sectors, headline: d.headline || '', paragraph: d.paragraph,
+      tighten: typeof d.tighten === 'string' ? d.tighten.trim() : '', source: 'ai',
+    }
   } catch (e) {
     console.warn('AI unavailable, using local engine:', e)
     return localResult(items, baseline, ctx)

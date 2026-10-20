@@ -36,7 +36,7 @@ export default function Context({ ctx, setCtx, onNext, onBack }) {
         <div className="panel">
           <h3>מהי מדיניות ההתגוננות הקודמת?</h3>
           <div className="levels">
-            {LEVELS.map((l) => (
+            {[...LEVELS].reverse().map((l) => (
               <button key={l.id} className={`lvl ${ctx.prevLevel === l.id ? 'on' : ''}`}
                 style={{ '--lvl': l.color }} aria-pressed={ctx.prevLevel === l.id}
                 onClick={() => set({ prevLevel: l.id })}>

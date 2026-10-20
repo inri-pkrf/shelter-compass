@@ -83,12 +83,28 @@ export function localResult(items, baseline, ctx) {
   const lvl = levelInfo(baseline.score)
   const diff = ctx?.prevLevel ? lvl.id - ctx.prevLevel : 0
   const move = !ctx?.prevLevel ? '' : diff < 0 ? 'הקלה לעומת המדיניות הקודמת' : diff > 0 ? 'החמרה לעומת המדיניות הקודמת' : 'המשך המדיניות הקודמת'
-  const lines = [`לאחר עיבוד נתונים מעמיק, המלצת ה-AI להתגוננות היא ${lvl.name}${move ? ' – ' + move : ''}.`]
+  const lines = [`${lvl.name}${move ? ' – ' + move : ''}.`]
   return {
     score: baseline.score,
     sectors: baseline.sectors,
     headline: lvl.headline,
     paragraph: lines.join('\n'),
+    tighten: tightenAdvice(baseline.sectors, ctx),
     source: 'local',
   }
+}
+/** משפט קצר: באיזה תחום ה-AI ממליץ להחמיר (לעומת המצב היום) */
+export function tightenAdvice(sectors, ctx) {
+  let best = null
+  SECTORS.forEach((s) => {
+    const rec = levelOf(sectors[s.id])
+    const cur = ctx?.current?.[s.id] ?? ctx?.prevLevel ?? rec
+    const d = rec - cur
+    if (d > 0 && (!best || d > best.d || (d === best.d && sectors[s.id] > best.score))) {
+      best = { s, d, score: sectors[s.id] }
+    }
+  })
+  return best
+    ? `מומלץ להחמיר בעיקר בתחום ${best.s.name}.`
+    : 'לא מומלץ להחמיר באף תחום.'
 }

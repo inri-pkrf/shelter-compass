@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Gauge from '../components/Gauge'
-import { LEVELS, SECTORS, levelOf, levelInfo } from '../lib/engine'
+import { LEVELS, SECTORS, levelOf, levelInfo, tightenAdvice } from '../lib/engine'
 
 export default function Results({ result, items, ctx, onEdit, onRestart }) {
   const [score, setScore] = useState(0)
@@ -11,7 +11,8 @@ export default function Results({ result, items, ctx, onEdit, onRestart }) {
   }, [result.score])
 
   const lvl = levelInfo(result.score)
-  const sentence = String(result.paragraph).split(/\n+/).map((x) => x.trim()).filter(Boolean).join(' ')
+  const sentence = String(result.paragraph).split(/\n+/).map((x) => x.trim()).filter(Boolean).join(' ').replace(/^לאחר עיבוד נתונים מעמיק,?\s*/, '')
+  const tighten = result.tighten || tightenAdvice(result.sectors, ctx)
 
   return (
     <section className="screen results">
@@ -30,7 +31,7 @@ export default function Results({ result, items, ctx, onEdit, onRestart }) {
             <h3>עיבוד נתונים</h3>
             <span className={`src ${result.source}`}>{result.source === 'ai' ? '✦ בינה מלאכותית' : 'חישוב מקומי'}</span>
           </div>
-          <p className="ai-line"><b>המלצת AI:</b> {sentence}</p>
+          <p className="ai-line"><b>המלצת AI:</b> {sentence} {tighten}</p>
         </div>
 
         <div className="journey">

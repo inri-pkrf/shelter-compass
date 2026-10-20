@@ -5,7 +5,7 @@
    הקנבס: 5760×1080 יחידות עיצוב = 1920×1080 לכל מסך.
    ═══════════════════════════════════════════════════════════ */
 .wide-main { flex: 1; min-height: 0; display: flex; }
-.w-root { flex: 1; min-width: 0; display: flex; direction: rtl; }
+.w-root { flex: 1; min-width: 0; display: flex; direction: rtl; position: relative; }
 
 .w-col { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; border-inline-start: 2px solid rgba(255,255,255,.08); }
 .w-col:first-child { border-inline-start: 0; }
@@ -110,3 +110,18 @@
 .w-intro p { font-size: 38px; color: var(--muted); }
 .w-threat { margin-top: 24px; }
 .w-threat .esc, .w-threat .trends { flex: none; height: 520px; }
+
+/* כותרת עליונה בכיתה האימרסיבית: לוגו בקצה הימני, כותרת במרכז, שלבים בקצה השמאלי */
+.w-col:first-child .w-top { justify-content: flex-start; }
+.w-col:last-child .w-top { justify-content: flex-end; }
+.w-title { text-align: center; line-height: 1.1; }
+.w-title strong { display: block; font-size: 46px; font-weight: 900; }
+.w-title small { font-size: 22px; color: var(--muted); }
+
+/* משפט נוסף במסך ההמלצה */
+.ai-line + .ai-line { margin-top: 14px; }
+
+/* עיבוד: שכבה על פני שלושת המסכים – ה-AI במרכז והנתונים עפים אליו מימין ומשמאל */
+.w-procfx { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
+.w-procfx .flyer { font-size: 32px; animation-duration: 3.8s; }
+.w-procfx .proc-msg { bottom: 150px; }

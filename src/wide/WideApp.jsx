@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useState } from 'react'
 import Gauge from '../components/Gauge'
 import Thermometer, { RATING_LABEL } from '../components/Thermometer'
-import Processing from '../screens/Processing'
 import { FACTORS, GROUPS, FACTOR_BY_ID } from '../data/factors'
 import { ADVERSARIES, ESCALATION, TRENDS } from '../data/context'
-import { LEVELS, SECTORS, levelOf, levelInfo } from '../lib/engine'
+import { LEVELS, SECTORS, levelOf, levelInfo, tightenAdvice } from '../lib/engine'
 import logo from '../assets/college-logo.svg'
 
 /* ════════════════════════════════════════════════════════════════
@@ -15,10 +14,14 @@ import logo from '../assets/college-logo.svg'
    הרכיב הזה מוצג רק כש-App מזהה מצב "wide". בטוטם ובמסך רגיל לא נוגעים בו.
    ════════════════════════════════════════════════════════════════ */
 
-const Brand = () => (
-  <div className="brand">
-    <span className="logo-plate"><img src={logo} alt="המכללה הלאומית לאיתנות ישראלית" /></span>
-    <div><strong>מצפן החלטות</strong><small>מדיניות התגוננות לאוכלוסייה</small></div>
+const Logo = () => (
+  <span className="logo-plate"><img src={logo} alt="המכללה הלאומית לאיתנות ישראלית" /></span>
+)
+
+const Title = () => (
+  <div className="w-title">
+    <strong>מצפן החלטות</strong>
+    <small>מדיניות התגוננות לאוכלוסייה</small>
   </div>
 )
 
@@ -61,12 +64,14 @@ const Nav = ({ onBack, onNext, nextLabel, disabled, center }) => (
   </>
 )
 
-function Shell({ steps, step, right, mid, left, bar, midTop = true }) {
+/* ימין: לוגו · אמצע: כותרת ממורכזת למרכז כל התצוגה · שמאל: שלבים */
+function Shell({ steps, step, right, mid, left, bar, overlay }) {
   return (
     <div className="w-root">
-      <Col top={<Brand />}>{right}</Col>
-      <Col top={midTop ? <Steps steps={steps} step={step} /> : null} bar={bar}>{mid}</Col>
-      <Col>{left}</Col>
+      <Col top={<Logo />}>{right}</Col>
+      <Col top={<Title />} bar={bar}>{mid}</Col>
+      <Col top={<Steps steps={steps} step={step} />}>{left}</Col>
+      {overlay}
     </div>
   )
 }
@@ -79,7 +84,7 @@ function WelcomeW({ sh, onStart }) {
     return () => clearInterval(id)
   }, [])
   return (
-    <Shell {...sh} midTop={false}
+    <Shell {...sh}
       right={
         <div className="w-center w-welcome">
           <h1>איפה נקודת האיזון בין הצלת חיים לשגרה?</h1>
@@ -99,7 +104,7 @@ function WelcomeW({ sh, onStart }) {
             <li><b>1</b>מגדירים את תמונת המצב</li>
             <li><b>2</b>בוחרים נתונים שחשובים להחלטה</li>
             <li><b>3</b>מדרגים עד כמה כל נתון קריטי</li>
-            <li><b>4</b>מקבלים המלצה למדיניות התגוננות </li>
+            <li><b>4</b>מקבלים המלצה למדיניות התגוננות</li>
           </ol>
         </div>
       }
@@ -142,7 +147,7 @@ function ContextW({ sh, ctx, setCtx, onBack, onNext }) {
         <div className="panel w-fill">
           <h3>מהי מדיניות ההתגוננות הקודמת?</h3>
           <div className="levels">
-            {LEVELS.map((l) => (
+            {[...LEVELS].reverse().map((l) => (
               <button key={l.id} className={`lvl ${ctx.prevLevel === l.id ? 'on' : ''}`}
                 style={{ '--lvl': l.color }} aria-pressed={ctx.prevLevel === l.id}
                 onClick={() => set({ prevLevel: l.id })}>
@@ -328,9 +333,39 @@ function RateW({ sh, selected, ratings, setRatings, onBack, onNext }) {
   )
 }
 
-/* ───────── עיבוד ───────── */
+/* ───────── עיבוד: הנתונים עפים אל ה-AI מכל שלושת המסכים ───────── */
+const MESSAGES = ['קורא את הנתונים שבחרתם…', 'שוקל את רמת הקריטיות של כל נתון…', 'מאזן בין הצלת חיים לשגרה…', 'בונה המלצה לכל מגזר…']
+
 function ProcessingW({ sh, items }) {
-  return <Shell {...sh} right={null} mid={<Processing items={items} />} left={null} />
+  const [m, setM] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setM((x) => (x + 1) % MESSAGES.length), 1100)
+    return () => clearInterval(id)
+  }, [])
+  return (
+    <Shell {...sh} right={null} mid={null} left={null}
+      overlay={
+        <div className="w-procfx">
+          <div className="orbit">
+            {items.map(({ factor }, i) => {
+              const side = i % 2 === 0 ? 1 : -1                 // לסירוגין: מימין ומשמאל למרכז
+              const x = side * (700 + ((i * 547) % 1950))        // 700–2650 יחידות מהמרכז = גם המסכים הצדדיים
+              const y = (((i * 197) % 7) - 3) * 95               // פיזור אנכי
+              return (
+                <span key={factor.id}
+                  className={`flyer ${factor.lean > 0 ? 'red' : 'green'}`}
+                  style={{ '--x': `${x}px`, '--y': `${y}px`, '--d': `${(i % 12) * 0.22}s` }}>
+                  {factor.icon} {factor.label}
+                </span>
+              )
+            })}
+            <div className="core"><span>AI</span></div>
+          </div>
+          <h2 className="proc-msg" key={m}>{MESSAGES[m]}</h2>
+        </div>
+      }
+    />
+  )
 }
 
 /* ───────── המלצה ───────── */
@@ -342,7 +377,8 @@ function ResultsW({ sh, result, items, ctx, onEdit, onRestart }) {
     return () => clearTimeout(t)
   }, [result.score])
   const lvl = levelInfo(result.score)
-  const sentence = String(result.paragraph).split(/\n+/).map((x) => x.trim()).filter(Boolean).join(' ')
+  const sentence = String(result.paragraph).split(/\n+/).map((x) => x.trim()).filter(Boolean).join(' ').replace(/^לאחר עיבוד נתונים מעמיק,?\s*/, '')
+  const tighten = result.tighten || tightenAdvice(result.sectors, ctx)
   const d = lvl.id - ctx.prevLevel
 
   return (
@@ -366,7 +402,7 @@ function ResultsW({ sh, result, items, ctx, onEdit, onRestart }) {
               <h3>עיבוד נתונים</h3>
               <span className={`src ${result.source}`}>{result.source === 'ai' ? '✦ בינה מלאכותית' : 'חישוב מקומי'}</span>
             </div>
-            <p className="ai-line"><b>המלצת AI:</b> {sentence}</p>
+            <p className="ai-line"><b>המלצת AI:</b> {sentence} {tighten}</p>
           </div>
           <div className="journey">
             <div className="j-chip" style={{ '--lvl': LEVELS[ctx.prevLevel - 1].color }}>
