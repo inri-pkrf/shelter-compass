@@ -5,6 +5,7 @@ import { FACTORS, GROUPS, FACTOR_BY_ID } from '../data/factors'
 import { ADVERSARIES, ESCALATION, TRENDS } from '../data/context'
 import { LEVELS, SECTORS, levelOf, levelInfo, tightenAdvice } from '../lib/engine'
 import logo from '../assets/college-logo.svg'
+import ScreenButtons from '../components/ScreenButtons'
 
 /* ════════════════════════════════════════════════════════════════
    פריסת הכיתה האימרסיבית: שלושה מסכים (3 × 3840×2160).
@@ -65,12 +66,12 @@ const Nav = ({ onBack, onNext, nextLabel, disabled, center }) => (
 )
 
 /* ימין: לוגו · אמצע: כותרת ממורכזת למרכז כל התצוגה · שמאל: שלבים */
-function Shell({ steps, step, right, mid, left, bar, overlay }) {
+function Shell({ steps, step, fs, right, mid, left, bar, overlay }) {
   return (
     <div className="w-root">
       <Col top={<Logo />}>{right}</Col>
       <Col top={<Title />} bar={bar}>{mid}</Col>
-      <Col top={<Steps steps={steps} step={step} />}>{left}</Col>
+      <Col top={<><Steps steps={steps} step={step} /><ScreenButtons fs={fs} /></>}>{left}</Col>
       {overlay}
     </div>
   )
@@ -450,8 +451,8 @@ function ResultsW({ sh, result, items, ctx, onEdit, onRestart }) {
 }
 
 export default function WideApp(p) {
-  const { screen, setScreen, ctx, setCtx, selected, setSelected, ratings, setRatings, items, result, run, restart, goState, steps, step } = p
-  const sh = { steps, step }
+  const { screen, setScreen, ctx, setCtx, selected, setSelected, ratings, setRatings, items, result, run, restart, goState, steps, step, fs } = p
+  const sh = { steps, step, fs }
   switch (screen) {
     case 'welcome':
       return <WelcomeW sh={sh} onStart={() => setScreen('context')} />

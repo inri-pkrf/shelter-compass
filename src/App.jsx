@@ -11,6 +11,8 @@ import { analyze } from './lib/ai'
 import { initialContext } from './data/context'
 import logo from './assets/college-logo.svg'
 import WideApp from './wide/WideApp'
+import ScreenButtons from './components/ScreenButtons'
+import useFullscreen from './lib/useFullscreen'
 
 const W = 1080
 const IDLE_MS = 120000 // 2 דקות ללא מגע → אזהרה
@@ -44,6 +46,7 @@ function useFit() {
 
 export default function App() {
   const fit = useFit()
+  const fs = useFullscreen()
   const [screen, setScreen] = useState('welcome')
   const [selected, setSelected] = useState([])
   const [ratings, setRatings] = useState({})
@@ -105,7 +108,7 @@ export default function App() {
               screen={screen} setScreen={setScreen} ctx={ctx} setCtx={setCtx}
               selected={selected} setSelected={setSelected} ratings={ratings} setRatings={setRatings}
               items={items} result={result} run={run} restart={restart} goState={goState}
-              steps={STEPS} step={step}
+              steps={STEPS} step={step} fs={fs}
             />
           </main>
         ) : (
@@ -122,6 +125,7 @@ export default function App() {
                   ))}
                 </ol>
               )}
+              <ScreenButtons fs={fs} />
             </header>
 
             <main>

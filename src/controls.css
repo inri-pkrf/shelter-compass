@@ -1,0 +1,10 @@
+/* כפתורי בית ומסך מלא – עיגול בגוון חום-כתום עם אייקון קווי לבן */
+.ctl { display: flex; align-items: center; gap: 14px; flex: none; }
+.ctl-btn { width: 64px; height: 64px; flex: none; border: 0; padding: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: #E8A878; box-shadow: 0 4px 14px rgba(0,0,0,.3); -webkit-tap-highlight-color: transparent; transition: transform .12s; }
+.ctl-btn:active { transform: scale(.9); }
+.ctl-btn svg { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.stage.portrait .ctl { gap: 10px; }
+.stage.portrait .ctl-btn { width: 56px; height: 56px; }
+.stage.portrait .ctl-btn svg { width: 30px; height: 30px; }
+/* כיתה אימרסיבית: הכפתורים בקצה השמאלי, ליד סרגל השלבים */
+.w-col:last-child .w-top { gap: 36px; }
